@@ -1,0 +1,43 @@
+networks:
+  algafood-network:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "13306:3306"
+    networks:
+      - algafood-network
+
+  algafood-redis:
+    image: redis:6.2.1-alpine
+    networks:
+      - algafood-network
+
+  algafood-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["/wait-for-it.sh", "mysql:3306", "-t", "45", "--","java", "-jar", "api.jar"]
+    environment:
+      DB_HOST: mysql
+      SPRING_SESSION_STORE_TYPE: redis
+      SPRING_REDIS_HOST: algafood-redis
+      SPRING_PROFILES_ACTIVE: development
+    networks:
+      - algafood-network
+    depends_on:
+      - mysql
+
+  algafood-proxy:
+    build: ./nginx
+    image: algafood-proxy
+    ports:
+      - "80:80"
+    networks:
+      - algafood-network
+    depends_on:
+      - algafood-api

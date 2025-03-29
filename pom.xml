@@ -33,7 +33,7 @@
         <aws.version>1.12.782</aws.version>
         <logback-ext-loggly>0.1.5</logback-ext-loggly>
         <spring-security-oauth2.version>2.3.7.RELEASE</spring-security-oauth2.version>
-        <start-class>com.algaworks.algafood.AlgafoodApiApplication</start-class>
+        <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
     </properties>
     <dependencies>
 <!--        <dependency>-->
@@ -41,6 +41,14 @@
 <!--            <artifactId>oauth2-oidc-sdk</artifactId>-->
 <!--            <version>6.21.2</version>-->
 <!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -163,17 +171,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.algaworks.algafood.AlgafoodApiApplication</mainClass>
-                    <layout>JAR</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

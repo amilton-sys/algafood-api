@@ -23,6 +23,6 @@ public class JwtKeyStoreProperties {
     private String password;
 
     @NotBlank
-    private String keyPairAlias;
+    private String keypairAlias;
 
 }

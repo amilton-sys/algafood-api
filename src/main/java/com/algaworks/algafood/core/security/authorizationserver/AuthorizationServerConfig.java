@@ -98,7 +98,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private KeyPair keyPair(){
         var keyStorePass = jwtKeyStoreProperties.getPassword();
-        var keyPairAlias = jwtKeyStoreProperties.getKeyPairAlias();
+        var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
         var keyStoreKeyFactory = new KeyStoreKeyFactory(jwtKeyStoreProperties.getJksLocation(), keyStorePass.toCharArray());
 
         return keyStoreKeyFactory.getKeyPair(keyPairAlias);
